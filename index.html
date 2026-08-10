@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Mohit Palhore · Full Stack PHP Developer</title>
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
 
   <!-- FontAwesome 6 -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
@@ -19,18 +19,17 @@
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      cursor: none !important;
     }
 
     :root {
-      --bg: #0B0D10;
-      --surface: #13171C;
-      --card: #1A1F26;
+      --bg: #0A0C10;
+      --surface: #12161C;
+      --card: #191F27;
       --border: rgba(255, 255, 255, 0.06);
-      --primary: #f97316;
-      --primary2: #fb923c;
-      --white: #EEF2F5;
-      --muted: rgba(238, 242, 245, 0.7);
+      --primary: #00d4ff;
+      --primary2: #0099ff;
+      --white: #EDF2F7;
+      --muted: rgba(237, 242, 247, 0.7);
       --r: 16px;
       --ease: cubic-bezier(0.23, 1, 0.32, 1);
       --shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
@@ -56,20 +55,6 @@
     body {
       overflow-x: hidden;
       transition: background 0.4s;
-    }
-
-    /* noise overlay */
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      opacity: 0.015;
-      pointer-events: none;
-      z-index: 9999;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.6' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
     }
 
     ::-webkit-scrollbar { width: 6px; }
@@ -109,21 +94,7 @@
     .glass-card:hover {
       border-color: var(--primary);
       transform: translateY(-4px);
-      box-shadow: 0 30px 60px rgba(249, 115, 22, 0.06);
-    }
-
-    /* ─── CUSTOM CURSOR ─── */
-    #custom-cursor {
-      width: 8px; height: 8px; background: var(--primary); border-radius: 50%;
-      position: fixed; top: 0; left: 0; pointer-events: none; z-index: 10000;
-      transition: transform 0.08s var(--ease); transform: translate(-50%, -50%);
-      box-shadow: 0 0 25px rgba(249, 115, 22, 0.3);
-    }
-    #cursor-follower {
-      width: 44px; height: 44px; border: 1.5px solid var(--primary); border-radius: 50%;
-      position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999;
-      transition: transform 0.25s cubic-bezier(0.1, 0.8, 0.3, 1);
-      transform: translate(-50%, -50%); opacity: 0.35;
+      box-shadow: 0 30px 60px rgba(0, 212, 255, 0.06);
     }
 
     /* ─── 3D CANVAS ─── */
@@ -135,21 +106,87 @@
       height: 100vh;
       z-index: 0;
       pointer-events: none;
-      opacity: 0.6;
+      opacity: 0.4;
     }
 
     /* ─── LOADER ─── */
     #loader {
-      position: fixed; inset: 0; background: var(--bg); z-index: 10001;
-      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      position: fixed;
+      inset: 0;
+      background: var(--bg);
+      z-index: 10001;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       transition: opacity 0.8s var(--ease);
     }
-    .loader-logo { font-size: 3.6rem; font-weight: 800; letter-spacing: -2px; margin-bottom: 18px; opacity: 0; transform: scale(0.9); animation: reveal 0.9s var(--ease) forwards 0.2s; }
-    .loader-logo span { color: var(--primary); }
-    .loader-bar { width: 160px; height: 2px; background: var(--border); border-radius: 4px; overflow: hidden; }
-    .loader-progress { width: 0%; height: 100%; background: linear-gradient(90deg, var(--primary), var(--primary2)); animation: load 1.6s var(--ease) forwards; }
-    @keyframes reveal { to { opacity:1; transform:scale(1); } }
-    @keyframes load { to { width: 100%; } }
+    .loader-content {
+      text-align: center;
+      animation: fadeInUp 1s var(--ease) forwards;
+    }
+    .loader-content .name {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 6vw, 5rem);
+      font-weight: 700;
+      letter-spacing: -1px;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+    .loader-content .name span {
+      color: var(--primary);
+    }
+    .loader-content .title {
+      font-size: clamp(1rem, 2vw, 1.4rem);
+      color: var(--muted);
+      font-weight: 400;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      margin-bottom: 30px;
+    }
+    .loader-bar {
+      width: 200px;
+      max-width: 80vw;
+      height: 3px;
+      background: var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+      margin: 0 auto;
+    }
+    .loader-progress {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), var(--primary2));
+      border-radius: 4px;
+      animation: load 1.8s var(--ease) forwards;
+    }
+    .loader-dots {
+      display: flex;
+      gap: 12px;
+      margin-top: 20px;
+      justify-content: center;
+    }
+    .loader-dots span {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--border);
+      animation: dotPulse 1.4s ease-in-out infinite;
+    }
+    .loader-dots span:nth-child(2) { animation-delay: 0.2s; }
+    .loader-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes load {
+      to { width: 100%; }
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes dotPulse {
+      0%, 80%, 100% { transform: scale(0.6); opacity: 0.3; }
+      40% { transform: scale(1); opacity: 1; }
+    }
 
     /* ─── SCROLL PROGRESS ─── */
     #scroll-progress {
@@ -160,30 +197,37 @@
 
     /* ─── HEADER ─── */
     header {
-      position: fixed; top: 0; left: 0; width: 100%; padding: 18px 10%;
+      position: fixed; top: 0; left: 0; width: 100%; padding: 16px 10%;
       display: flex; justify-content: space-between; align-items: center;
       z-index: 1000; transition: all 0.4s var(--ease);
       background: transparent;
     }
     header.scrolled {
       padding: 12px 10%;
-      background: rgba(11, 13, 16, 0.85);
+      background: rgba(10, 12, 16, 0.92);
       backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--border);
     }
     [data-theme="light"] header.scrolled {
-      background: rgba(240, 244, 250, 0.85);
+      background: rgba(240, 244, 250, 0.92);
     }
-    .logo { font-size: 1.6rem; font-weight: 800; letter-spacing: -1px; text-decoration: none; color: var(--white); }
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      text-decoration: none;
+      color: var(--white);
+      letter-spacing: -0.5px;
+    }
     .logo span { color: var(--primary); }
 
     nav.desktop-nav {
       display: flex;
-      gap: 28px;
+      gap: 24px;
       align-items: center;
     }
     nav.desktop-nav a {
-      text-decoration: none; color: var(--muted); font-size: 0.8rem;
+      text-decoration: none; color: var(--muted); font-size: 0.75rem;
       font-weight: 500; letter-spacing: 1px; text-transform: uppercase;
       transition: color 0.3s var(--ease); position: relative;
     }
@@ -195,77 +239,7 @@
     nav.desktop-nav a:hover::after, nav.desktop-nav a.active::after { width: 100%; }
     nav.desktop-nav a:hover, nav.desktop-nav a.active { color: var(--white); }
 
-    .menu-toggle {
-      display: none;
-      background: transparent;
-      border: 1px solid var(--border);
-      color: var(--white);
-      width: 42px;
-      height: 42px;
-      border-radius: 8px;
-      font-size: 1.2rem;
-      cursor: pointer;
-      transition: all 0.3s var(--ease);
-      align-items: center;
-      justify-content: center;
-    }
-    .menu-toggle:hover {
-      border-color: var(--primary);
-      color: var(--primary);
-    }
-
-    .mobile-nav-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100vh;
-      background: rgba(11, 13, 16, 0.95);
-      backdrop-filter: blur(20px);
-      z-index: 999;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      gap: 30px;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.4s var(--ease);
-      padding: 40px;
-    }
-    .mobile-nav-overlay.active {
-      opacity: 1;
-      pointer-events: all;
-    }
-    .mobile-nav-overlay a {
-      color: var(--white);
-      text-decoration: none;
-      font-size: 1.4rem;
-      font-weight: 600;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      transition: color 0.3s var(--ease);
-      padding: 8px 0;
-    }
-    .mobile-nav-overlay a:hover {
-      color: var(--primary);
-    }
-    .mobile-nav-overlay .close-menu {
-      position: absolute;
-      top: 30px;
-      right: 30px;
-      font-size: 2rem;
-      color: var(--muted);
-      background: none;
-      border: none;
-      cursor: pointer;
-      transition: color 0.3s;
-    }
-    .mobile-nav-overlay .close-menu:hover {
-      color: var(--white);
-    }
-
-    .header-actions { display: flex; align-items: center; gap: 14px; }
+    .header-actions { display: flex; align-items: center; gap: 12px; }
     .theme-toggle {
       background: transparent; border: 1px solid var(--border); color: var(--white);
       width: 38px; height: 38px; border-radius: 50%; font-size: 1rem;
@@ -276,25 +250,100 @@
 
     .btn-premium {
       background: transparent; border: 1px solid var(--primary); color: var(--white);
-      padding: 8px 24px; border-radius: 40px; font-weight: 600; font-size: 0.8rem;
+      padding: 8px 22px; border-radius: 40px; font-weight: 600; font-size: 0.75rem;
       text-decoration: none; transition: all 0.4s var(--ease);
       display: inline-block; font-family: 'Inter', sans-serif;
     }
     .btn-premium:hover {
       border-color: var(--white); transform: translateY(-2px);
-      box-shadow: 0 8px 30px rgba(249, 115, 22, 0.15);
-      background: rgba(249, 115, 22, 0.05);
+      box-shadow: 0 8px 30px rgba(0, 212, 255, 0.15);
+      background: rgba(0, 212, 255, 0.05);
     }
 
+    .menu-toggle {
+      display: none;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--white);
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: all 0.3s var(--ease);
+      align-items: center;
+      justify-content: center;
+      z-index: 1001;
+    }
+    .menu-toggle:hover { border-color: var(--primary); color: var(--primary); }
+
+    .mobile-nav-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: rgba(10, 12, 16, 0.97);
+      backdrop-filter: blur(20px);
+      z-index: 999;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 25px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s var(--ease);
+      padding: 30px;
+    }
+    .mobile-nav-overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .mobile-nav-overlay a {
+      color: var(--white);
+      text-decoration: none;
+      font-size: 1.3rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      transition: color 0.3s var(--ease);
+      padding: 8px 0;
+    }
+    .mobile-nav-overlay a:hover { color: var(--primary); }
+    .mobile-nav-overlay .close-menu {
+      position: absolute;
+      top: 25px;
+      right: 25px;
+      font-size: 2rem;
+      color: var(--muted);
+      background: none;
+      border: none;
+      cursor: pointer;
+      transition: color 0.3s;
+      z-index: 1000;
+    }
+    .mobile-nav-overlay .close-menu:hover { color: var(--white); }
+
+    .resume-btn {
+      background: var(--primary); color: #0A0C10; border: none;
+      padding: 8px 18px; border-radius: 40px; font-weight: 700;
+      font-size: 0.7rem; text-decoration: none; display: inline-flex;
+      align-items: center; gap: 6px; transition: all 0.3s var(--ease);
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+    }
+    .resume-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0, 212, 255, 0.3); }
+
     /* ─── HERO ─── */
-    #home { min-height: 100vh; display: flex; align-items: center; padding-top: 90px; }
+    #home { min-height: 100vh; display: flex; align-items: center; padding-top: 80px; }
     .hero-grid {
       display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 50px;
       align-items: center; width: 100%;
     }
     .hero-badge {
-      display: inline-block; background: rgba(249, 115, 22, 0.08);
-      border: 1px solid rgba(249, 115, 22, 0.15); padding: 5px 16px;
+      display: inline-block; background: rgba(0, 212, 255, 0.08);
+      border: 1px solid rgba(0, 212, 255, 0.15); padding: 5px 16px;
       border-radius: 30px; font-size: 0.7rem; font-weight: 600;
       letter-spacing: 1px; text-transform: uppercase; color: var(--primary);
       margin-bottom: 16px;
@@ -335,7 +384,7 @@
     }
     .portrait-wrap .glow {
       position: absolute; inset: -15%; border-radius: 50%;
-      background: radial-gradient(circle, rgba(249, 115, 22, 0.1) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(0, 212, 255, 0.1) 0%, transparent 70%);
       filter: blur(30px); z-index: 0;
     }
     .portrait-frame {
@@ -384,7 +433,7 @@
     .exp-card ul li::before { content: '▹'; position: absolute; left: 0; color: var(--primary); font-size: 0.8rem; }
     .exp-tech { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
     .exp-tech span {
-      background: rgba(249, 115, 22, 0.06); border: 1px solid var(--border);
+      background: rgba(0, 212, 255, 0.06); border: 1px solid var(--border);
       padding: 2px 12px; border-radius: 20px; font-size: 0.65rem;
       color: var(--muted); font-weight: 500;
     }
@@ -395,8 +444,9 @@
       background: transparent; border: 1px solid var(--border); color: var(--muted);
       padding: 6px 20px; border-radius: 30px; font-family: 'Inter', sans-serif;
       font-size: 0.75rem; font-weight: 500; transition: all 0.3s var(--ease);
+      cursor: pointer;
     }
-    .filter-btn.active, .filter-btn:hover { border-color: var(--primary); color: var(--white); background: rgba(249, 115, 22, 0.04); }
+    .filter-btn.active, .filter-btn:hover { border-color: var(--primary); color: var(--white); background: rgba(0, 212, 255, 0.04); }
     .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
     .project-card { overflow: hidden; display: flex; flex-direction: column; }
     .project-img { width: 100%; aspect-ratio: 16/10; overflow: hidden; border-bottom: 1px solid var(--border); }
@@ -436,10 +486,10 @@
       background: var(--bg); position: relative; z-index: 2;
     }
     .footer-top { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 30px; margin-bottom: 40px; }
-    .footer-brand h3 { font-size: 1.8rem; font-weight: 800; }
+    .footer-brand h3 { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 700; }
     .footer-brand h3 span { color: var(--primary); }
     .footer-brand p { color: var(--muted); max-width: 260px; font-size: 0.9rem; line-height: 1.7; }
-    .footer-links-wrap { display: flex; gap: 60px; }
+    .footer-links-wrap { display: flex; gap: 60px; flex-wrap: wrap; }
     .footer-col h5 { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: var(--primary); font-weight: 600; margin-bottom: 14px; }
     .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
     .footer-col a { color: var(--muted); text-decoration: none; font-size: 0.85rem; transition: color 0.3s; }
@@ -449,31 +499,24 @@
     .back-to-top { width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--border); background: transparent; color: var(--white); display: flex; align-items: center; justify-content: center; transition: all 0.3s var(--ease); text-decoration: none; }
     .back-to-top:hover { border-color: var(--primary); color: var(--primary); transform: translateY(-3px); }
 
-    /* ─── RESUME DOWNLOAD ─── */
-    .resume-btn {
-      background: var(--primary); color: #0B0D10; border: none;
-      padding: 8px 20px; border-radius: 40px; font-weight: 700;
-      font-size: 0.75rem; text-decoration: none; display: inline-flex;
-      align-items: center; gap: 8px; transition: all 0.3s var(--ease);
-      font-family: 'Inter', sans-serif;
-    }
-    .resume-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(249, 115, 22, 0.3); }
-
     /* ─── HIRE MODAL ─── */
     .overlay {
       position: fixed; inset: 0; z-index: 800;
-      background: rgba(0,0,0,0.7); backdrop-filter: blur(14px);
-      display: grid; place-items: center;
+      background: rgba(0,0,0,0.75); backdrop-filter: blur(14px);
+      display: flex; align-items: center; justify-content: center;
       opacity: 0; pointer-events: none; transition: opacity 0.4s;
+      padding: 20px;
     }
     .overlay.active { opacity: 1; pointer-events: all; }
     .overlay.active .hire-modal { transform: translateY(0) scale(1); opacity: 1; }
     .hire-modal {
       background: var(--surface); border: 1px solid var(--border);
-      border-radius: 24px; padding: 42px 38px;
+      border-radius: 24px; padding: 40px 36px;
       width: 100%; max-width: 480px; position: relative;
       transform: translateY(30px) scale(0.97); opacity: 0;
       transition: all 0.4s var(--ease);
+      max-height: 90vh;
+      overflow-y: auto;
     }
     .hire-modal .close-btn {
       position: absolute; top: 16px; right: 18px; font-size: 1.2rem;
@@ -491,16 +534,18 @@
       border-radius: 12px; padding: 12px 16px; color: var(--white);
       font-family: 'Inter', sans-serif; font-size: 0.85rem;
       outline: none; transition: border-color 0.25s;
+      width: 100%;
     }
     .hire-form input:focus, .hire-form textarea:focus { border-color: var(--primary); }
     .hire-form input::placeholder, .hire-form textarea::placeholder { color: rgba(255,255,255,0.2); }
     .hire-btn {
-      background: var(--primary); color: #0B0D10; border: none;
+      background: var(--primary); color: #0A0C10; border: none;
       padding: 14px; border-radius: 50px; font-weight: 700;
       font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em;
       cursor: pointer; transition: all 0.3s var(--ease); margin-top: 4px;
+      width: 100%;
     }
-    .hire-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(249, 115, 22, 0.25); }
+    .hire-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0, 212, 255, 0.25); }
 
     /* ─── REVEAL ─── */
     .reveal-element { opacity: 0; transform: translateY(40px); transition: opacity 0.8s var(--ease), transform 0.8s var(--ease); }
@@ -509,7 +554,7 @@
     /* ─── RESPONSIVE ─── */
     @media (max-width: 1024px) {
       section { padding: 80px 6% 60px 6%; }
-      header { padding: 16px 6%; }
+      header { padding: 14px 6%; }
       .hero-grid { grid-template-columns: 1fr; text-align: center; gap: 34px; }
       .hero-left h1 { text-align: center; }
       .hero-desc { margin: 0 auto 24px; }
@@ -532,31 +577,45 @@
       .hire-modal .row { grid-template-columns: 1fr; }
       .footer-links-wrap { gap: 30px; flex-wrap: wrap; }
       .resume-btn { width: 100%; justify-content: center; }
+      .hire-modal { padding: 30px 20px; }
+      section { padding: 70px 5% 50px 5%; }
+      .contact-form .btn-premium { width: 100%; text-align: center; }
+      .loader-content .name { font-size: 2.5rem; }
     }
 
     @media (max-width: 480px) {
       .portrait-wrap { width: 180px; height: 180px; }
-      .hire-modal { padding: 28px 18px; }
+      .hire-modal { padding: 24px 16px; }
       .stats-grid { grid-template-columns: 1fr; }
-      section { padding: 70px 4% 50px 4%; }
+      section { padding: 60px 4% 40px 4%; }
       .section-title { font-size: 1.8rem; }
+      .hero-left h1 { font-size: 2.2rem; }
+      .loader-content .name { font-size: 2rem; }
+      .loader-content .title { font-size: 0.8rem; letter-spacing: 2px; }
+      .loader-bar { width: 160px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- LOADER -->
+  <!-- ─── LOADER ─── -->
   <div id="loader">
-    <div class="loader-logo">Mohit Palhore<span>.</span></div>
-    <div class="loader-bar"><div class="loader-progress"></div></div>
+    <div class="loader-content">
+      <div class="name">Mohit <span>Palhore</span></div>
+      <div class="title">Full Stack Developer</div>
+      <div class="loader-bar">
+        <div class="loader-progress"></div>
+      </div>
+      <div class="loader-dots">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
   </div>
 
   <!-- SCROLL PROGRESS -->
   <div id="scroll-progress"></div>
-
-  <!-- CUSTOM CURSOR -->
-  <div id="custom-cursor"></div>
-  <div id="cursor-follower"></div>
 
   <!-- 3D CANVAS -->
   <div id="canvas-container"></div>
@@ -578,7 +637,7 @@
       <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
         <i class="fas fa-moon"></i>
       </button>
-      <a href="#" class="resume-btn" download><i class="fas fa-file-pdf"></i> Resume</a>
+      <a href="#" class="resume-btn" id="resumeDownloadBtn"><i class="fas fa-file-pdf"></i> Resume</a>
       <a href="#contact" class="btn-premium" onclick="openHire()">Hire Me</a>
       <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
         <i class="fas fa-bars"></i>
@@ -595,7 +654,7 @@
     <a href="#experience" onclick="closeMobileMenu()">Experience</a>
     <a href="#projects" onclick="closeMobileMenu()">Projects</a>
     <a href="#contact" onclick="closeMobileMenu()">Contact</a>
-    <a href="#" class="resume-btn" download onclick="closeMobileMenu()" style="margin-top:10px;"><i class="fas fa-file-pdf"></i> Download Resume</a>
+    <a href="#" class="resume-btn" onclick="closeMobileMenu()" style="margin-top:10px; width:auto; padding:10px 30px; background:var(--primary); color:#0A0C10;"><i class="fas fa-file-pdf"></i> Download Resume</a>
   </div>
 
   <!-- HERO -->
@@ -620,7 +679,7 @@
         <div class="hero-buttons">
           <a href="#contact" class="btn-premium" onclick="openHire()">Hire Me</a>
           <a href="#projects" class="btn-secondary">View Projects</a>
-          <a href="#" class="resume-btn" download><i class="fas fa-file-pdf"></i> Download Resume</a>
+          <a href="#" class="resume-btn" id="heroResumeBtn"><i class="fas fa-file-pdf"></i> Download Resume</a>
         </div>
         <div class="hero-socials">
           <a href="#" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
@@ -633,7 +692,8 @@
         <div class="portrait-wrap">
           <div class="glow"></div>
           <div class="portrait-frame">
-            <img src="https://ui-avatars.com/api/?name=Mohit+Palhore&background=13171C&color=f97316&size=340&bold=true&font-size=0.4" alt="Mohit Palhore" />
+            <!-- <img src="https://ui-avatars.com/api/?name=Mohit+Palhore&background=12161C&color=00d4ff&size=340&bold=true&font-size=0.4" alt="Mohit Palhore" /> -->
+            <img src="images/mp.png" alt="Mohit Palhore" />
           </div>
         </div>
       </div>
@@ -810,7 +870,7 @@
     <div class="projects-grid">
       <div class="project-card glass-card" data-cat="laravel">
         <div class="project-img">
-          <img src="https://via.placeholder.com/600x375/1A1F26/f97316?text=Laravel+CRM" alt="Laravel CRM" />
+          <img src="https://via.placeholder.com/600x375/1A1F26/00d4ff?text=Laravel+CRM" alt="Laravel CRM" />
         </div>
         <div class="project-info">
           <h3 class="project-title">Laravel CRM System</h3>
@@ -823,7 +883,7 @@
       </div>
       <div class="project-card glass-card" data-cat="web">
         <div class="project-img">
-          <img src="https://via.placeholder.com/600x375/1A1F26/fb923c?text=E-commerce+Platform" alt="E-commerce" />
+          <img src="https://via.placeholder.com/600x375/1A1F26/0099ff?text=E-commerce+Platform" alt="E-commerce" />
         </div>
         <div class="project-info">
           <h3 class="project-title">E‑commerce Platform</h3>
@@ -836,7 +896,7 @@
       </div>
       <div class="project-card glass-card" data-cat="laravel">
         <div class="project-img">
-          <img src="https://via.placeholder.com/600x375/1A1F26/f97316?text=Admin+Dashboard" alt="Admin Dashboard" />
+          <img src="https://via.placeholder.com/600x375/1A1F26/00d4ff?text=Admin+Dashboard" alt="Admin Dashboard" />
         </div>
         <div class="project-info">
           <h3 class="project-title">Admin Dashboard</h3>
@@ -860,7 +920,7 @@
       <div class="contact-details">
         <div class="contact-info-block">
           <h4>Email</h4>
-          <p>mohit@example.com</p>
+          <p>pahoreatul999@.com</p>
         </div>
         <div class="contact-info-block">
           <h4>Services</h4>
@@ -888,7 +948,7 @@
           <textarea class="form-control" placeholder=" " id="input-msg" name="message" rows="4" required></textarea>
           <label class="form-label" for="input-msg">Message</label>
         </div>
-        <button type="submit" class="btn-premium" style="width:fit-content; align-self:flex-start; margin-top:8px;">Send Message</button>
+        <button type="submit" class="btn-premium" style="width:fit-content; align-self:flex-start; margin-top:8px; padding:12px 32px;">Send Message</button>
       </form>
     </div>
   </section>
@@ -948,56 +1008,147 @@
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       initLoader();
-      initCustomCursor();
-      initTypewriter();
       initThreeEngine();
+      initTypewriter();
       initScrollAnimations();
       initProjectFilters();
       initActiveNav();
       initThemeToggle();
       initMobileMenu();
+      initResumeButtons();
     });
 
     function initLoader() {
       const loader = document.getElementById('loader');
+      // Hide loader after page loads
       window.addEventListener('load', () => {
-        setTimeout(() => { loader.style.opacity = '0'; setTimeout(() => loader.style.display = 'none', 700); }, 600);
+        setTimeout(() => {
+          loader.style.opacity = '0';
+          setTimeout(() => loader.style.display = 'none', 700);
+        }, 800);
       });
-      setTimeout(() => { loader.style.opacity = '0'; setTimeout(() => loader.style.display = 'none', 700); }, 2500);
+      // Fallback - hide after 3 seconds if something goes wrong
+      setTimeout(() => {
+        if (loader.style.display !== 'none') {
+          loader.style.opacity = '0';
+          setTimeout(() => loader.style.display = 'none', 700);
+        }
+      }, 3000);
     }
 
-    function initCustomCursor() {
-      const cursor = document.getElementById('custom-cursor');
-      const follower = document.getElementById('cursor-follower');
-      let mx = window.innerWidth / 2,
-        my = window.innerHeight / 2,
-        fx = mx,
-        fy = my;
+    function initThreeEngine() {
+      const container = document.getElementById('canvas-container');
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+      camera.position.z = 5;
+      const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      container.appendChild(renderer.domElement);
+
+      const ambient = new THREE.AmbientLight(0xffffff, 0.35);
+      scene.add(ambient);
+      const dir = new THREE.DirectionalLight(0x00d4ff, 0.5);
+      dir.position.set(5, 5, 5);
+      scene.add(dir);
+
+      const count = window.innerWidth < 768 ? 80 : 200;
+      const geo = new THREE.BufferGeometry();
+      const pos = new Float32Array(count * 3);
+      const colors = new Float32Array(count * 3);
+      for (let i = 0; i < count * 3; i += 3) {
+        const radius = 2 + Math.random() * 4;
+        const theta = Math.random() * Math.PI * 2;
+        const phi = Math.random() * Math.PI * 2;
+        pos[i] = radius * Math.sin(theta) * Math.cos(phi);
+        pos[i + 1] = radius * Math.sin(theta) * Math.sin(phi);
+        pos[i + 2] = radius * Math.cos(theta);
+        colors[i] = 0.2 + Math.random() * 0.3;
+        colors[i + 1] = 0.7 + Math.random() * 0.3;
+        colors[i + 2] = 0.9 + Math.random() * 0.1;
+      }
+      geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+      geo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+      const mat = new THREE.PointsMaterial({
+        size: 0.06,
+        vertexColors: true,
+        transparent: true,
+        opacity: 0.7,
+        blending: THREE.AdditiveBlending,
+        sizeAttenuation: true
+      });
+      const cloud = new THREE.Points(geo, mat);
+      scene.add(cloud);
+
+      const ringGroup = new THREE.Group();
+      const ringColors = [0x00d4ff, 0x0099ff, 0x0066cc];
+      for (let i = 0; i < 3; i++) {
+        const torusGeo = new THREE.TorusGeometry(1.8 + i * 0.7, 0.02, 16, 80);
+        const torusMat = new THREE.MeshBasicMaterial({
+          color: ringColors[i],
+          transparent: true,
+          opacity: 0.15 - i * 0.03,
+        });
+        const ring = new THREE.Mesh(torusGeo, torusMat);
+        ring.position.set(0, 0, -i * 0.6);
+        ring.rotation.x = Math.PI / 3 + i * 0.25;
+        ring.rotation.y = i * 0.5;
+        ringGroup.add(ring);
+      }
+      scene.add(ringGroup);
+
+      const orbitCount = 60;
+      const orbitGeo = new THREE.BufferGeometry();
+      const orbitPos = new Float32Array(orbitCount * 3);
+      for (let i = 0; i < orbitCount * 3; i += 3) {
+        const angle = (i / 3) * (Math.PI * 2 / orbitCount);
+        const r = 2.8 + Math.random() * 0.5;
+        orbitPos[i] = r * Math.cos(angle);
+        orbitPos[i + 1] = (Math.random() - 0.5) * 0.5;
+        orbitPos[i + 2] = r * Math.sin(angle);
+      }
+      orbitGeo.setAttribute('position', new THREE.BufferAttribute(orbitPos, 3));
+      const orbitMat = new THREE.PointsMaterial({
+        color: 0x00d4ff,
+        size: 0.025,
+        transparent: true,
+        opacity: 0.4,
+        blending: THREE.AdditiveBlending
+      });
+      const orbitParticles = new THREE.Points(orbitGeo, orbitMat);
+      scene.add(orbitParticles);
+
+      let tx = 0,
+        ty = 0;
       document.addEventListener('mousemove', (e) => {
-        mx = e.clientX;
-        my = e.clientY;
-        cursor.style.transform = `translate3d(${mx}px, ${my}px, 0) translate(-50%, -50%)`;
+        tx = (e.clientX / window.innerWidth) - 0.5;
+        ty = (e.clientY / window.innerHeight) - 0.5;
       });
 
-      function updateFollower() {
-        fx += (mx - fx) * 0.12;
-        fy += (my - fy) * 0.12;
-        follower.style.transform = `translate3d(${fx}px, ${fy}px, 0) translate(-50%, -50%)`;
-        requestAnimationFrame(updateFollower);
-      }
-      requestAnimationFrame(updateFollower);
+      function render() {
+        requestAnimationFrame(render);
+        cloud.rotation.y += 0.002;
+        cloud.rotation.x += 0.0005;
+        ringGroup.rotation.y += 0.005;
+        ringGroup.rotation.x += 0.001;
+        orbitParticles.rotation.y += 0.008;
+        orbitParticles.rotation.x += 0.002;
 
-      document.querySelectorAll('a, button, .filter-btn, .form-control, .theme-toggle, .menu-toggle').forEach(el => {
-        el.addEventListener('mouseenter', () => {
-          follower.style.transform += ' scale(1.5)';
-          follower.style.borderColor = 'var(--primary)';
-          cursor.style.backgroundColor = 'var(--white)';
-        });
-        el.addEventListener('mouseleave', () => {
-          follower.style.transform = follower.style.transform.replace(' scale(1.5)', '');
-          follower.style.borderColor = 'var(--primary)';
-          cursor.style.backgroundColor = 'var(--primary)';
-        });
+        cloud.position.x += (tx * 0.3 - cloud.position.x) * 0.03;
+        cloud.position.y += (-ty * 0.3 - cloud.position.y) * 0.03;
+        ringGroup.position.x += (tx * 0.4 - ringGroup.position.x) * 0.03;
+        ringGroup.position.y += (-ty * 0.4 - ringGroup.position.y) * 0.03;
+        orbitParticles.position.x += (tx * 0.2 - orbitParticles.position.x) * 0.03;
+        orbitParticles.position.y += (-ty * 0.2 - orbitParticles.position.y) * 0.03;
+
+        renderer.render(scene, camera);
+      }
+      render();
+
+      window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
       });
     }
 
@@ -1021,132 +1172,6 @@
         setTimeout(loop, spd);
       }
       setTimeout(loop, 1000);
-    }
-
-    function initThreeEngine() {
-      const container = document.getElementById('canvas-container');
-      const scene = new THREE.Scene();
-      const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
-      camera.position.z = 5;
-      const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-      renderer.setSize(window.innerWidth, window.innerHeight);
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-      container.appendChild(renderer.domElement);
-
-      const ambient = new THREE.AmbientLight(0xffffff, 0.35);
-      scene.add(ambient);
-      const dir = new THREE.DirectionalLight(0xf97316, 0.5);
-      dir.position.set(5, 5, 5);
-      scene.add(dir);
-
-      // Enhanced 3D Particle System
-      const count = window.innerWidth < 768 ? 80 : 200;
-      const geo = new THREE.BufferGeometry();
-      const pos = new Float32Array(count * 3);
-      const colors = new Float32Array(count * 3);
-      const sizes = new Float32Array(count);
-      for (let i = 0; i < count * 3; i += 3) {
-        const radius = 2 + Math.random() * 4;
-        const theta = Math.random() * Math.PI * 2;
-        const phi = Math.random() * Math.PI * 2;
-        pos[i] = radius * Math.sin(theta) * Math.cos(phi);
-        pos[i + 1] = radius * Math.sin(theta) * Math.sin(phi);
-        pos[i + 2] = radius * Math.cos(theta);
-        colors[i] = 0.9 + Math.random() * 0.1;
-        colors[i + 1] = 0.4 + Math.random() * 0.3;
-        colors[i + 2] = 0.1 + Math.random() * 0.2;
-        sizes[i / 3] = 0.02 + Math.random() * 0.06;
-      }
-      geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
-      geo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-      geo.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
-      const mat = new THREE.PointsMaterial({
-        size: 0.06,
-        vertexColors: true,
-        transparent: true,
-        opacity: 0.7,
-        blending: THREE.AdditiveBlending,
-        sizeAttenuation: true
-      });
-      const cloud = new THREE.Points(geo, mat);
-      scene.add(cloud);
-
-      // Floating Rings
-      const ringGroup = new THREE.Group();
-      const ringColors = [0xf97316, 0xfb923c, 0xfdba74];
-      for (let i = 0; i < 3; i++) {
-        const torusGeo = new THREE.TorusGeometry(1.8 + i * 0.7, 0.02, 16, 80);
-        const torusMat = new THREE.MeshBasicMaterial({
-          color: ringColors[i],
-          transparent: true,
-          opacity: 0.15 - i * 0.03,
-          wireframe: false
-        });
-        const ring = new THREE.Mesh(torusGeo, torusMat);
-        ring.position.set(0, 0, -i * 0.6);
-        ring.rotation.x = Math.PI / 3 + i * 0.25;
-        ring.rotation.y = i * 0.5;
-        ringGroup.add(ring);
-      }
-      scene.add(ringGroup);
-
-      // Small orbiting particles
-      const orbitCount = 60;
-      const orbitGeo = new THREE.BufferGeometry();
-      const orbitPos = new Float32Array(orbitCount * 3);
-      for (let i = 0; i < orbitCount * 3; i += 3) {
-        const angle = (i / 3) * (Math.PI * 2 / orbitCount);
-        const r = 2.8 + Math.random() * 0.5;
-        orbitPos[i] = r * Math.cos(angle);
-        orbitPos[i + 1] = (Math.random() - 0.5) * 0.5;
-        orbitPos[i + 2] = r * Math.sin(angle);
-      }
-      orbitGeo.setAttribute('position', new THREE.BufferAttribute(orbitPos, 3));
-      const orbitMat = new THREE.PointsMaterial({
-        color: 0xf97316,
-        size: 0.02,
-        transparent: true,
-        opacity: 0.4,
-        blending: THREE.AdditiveBlending
-      });
-      const orbitParticles = new THREE.Points(orbitGeo, orbitMat);
-      scene.add(orbitParticles);
-
-      let tx = 0,
-        ty = 0;
-      document.addEventListener('mousemove', (e) => {
-        tx = (e.clientX / window.innerWidth) - 0.5;
-        ty = (e.clientY / window.innerHeight) - 0.5;
-      });
-
-      function render() {
-        requestAnimationFrame(render);
-
-        // Rotate everything
-        cloud.rotation.y += 0.002;
-        cloud.rotation.x += 0.0005;
-        ringGroup.rotation.y += 0.005;
-        ringGroup.rotation.x += 0.001;
-        orbitParticles.rotation.y += 0.008;
-        orbitParticles.rotation.x += 0.002;
-
-        // Mouse follow with smooth easing
-        cloud.position.x += (tx * 0.3 - cloud.position.x) * 0.03;
-        cloud.position.y += (-ty * 0.3 - cloud.position.y) * 0.03;
-        ringGroup.position.x += (tx * 0.4 - ringGroup.position.x) * 0.03;
-        ringGroup.position.y += (-ty * 0.4 - ringGroup.position.y) * 0.03;
-        orbitParticles.position.x += (tx * 0.2 - orbitParticles.position.x) * 0.03;
-        orbitParticles.position.y += (-ty * 0.2 - orbitParticles.position.y) * 0.03;
-
-        renderer.render(scene, camera);
-      }
-      render();
-
-      window.addEventListener('resize', () => {
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(window.innerWidth, window.innerHeight);
-      });
     }
 
     function initScrollAnimations() {
@@ -1228,7 +1253,7 @@
         let cur = 'home';
         sections.forEach(sec => { if (window.scrollY >= sec.offsetTop - 200) cur = sec.getAttribute('id'); });
         links.forEach(link => {
-          link.classList.toggle('active', link.getAttribute('href') === `#${cur}`);
+          if (link) link.classList.toggle('active', link.getAttribute('href') === `#${cur}`);
         });
       });
     }
@@ -1250,21 +1275,46 @@
       const overlay = document.getElementById('mobileNavOverlay');
       const closeBtn = document.getElementById('closeMenu');
 
-      toggle.addEventListener('click', () => {
-        overlay.classList.add('active');
-        document.body.style.overflow = 'hidden';
+      function closeMenu(e) {
+        if (e) e.preventDefault();
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+        if (toggle) toggle.style.display = 'flex';
+      }
+
+      if (toggle) {
+        toggle.addEventListener('click', function(e) {
+          e.stopPropagation();
+          overlay.classList.add('active');
+          toggle.style.display = 'none';
+          document.body.style.overflow = 'hidden';
+        });
+      }
+
+      if (closeBtn) {
+        closeBtn.addEventListener('click', closeMenu);
+      }
+
+      if (overlay) {
+        overlay.addEventListener('click', function(e) {
+          if (e.target === overlay) closeMenu(e);
+        });
+      }
+
+      document.querySelectorAll('.mobile-nav-overlay a').forEach(link => {
+        link.addEventListener('click', closeMenu);
       });
 
-      closeBtn.addEventListener('click', closeMobileMenu);
-      overlay.addEventListener('click', (e) => {
-        if (e.target === overlay) closeMobileMenu();
-      });
+      window.closeMobileMenu = closeMenu;
     }
 
-    function closeMobileMenu() {
-      const overlay = document.getElementById('mobileNavOverlay');
-      overlay.classList.remove('active');
-      document.body.style.overflow = '';
+    function initResumeButtons() {
+      document.querySelectorAll('.resume-btn').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+          e.preventDefault();
+          alert('📄 Resume download would start here.\n\nIn a real implementation, this would download your actual PDF resume.');
+        });
+      });
     }
 
     function openHire() {
@@ -1280,11 +1330,12 @@
     function handleOverlayClick(e) {
       if (e.target === document.getElementById('overlay')) closeHire();
     }
+
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeHire(); });
     window.openHire = openHire;
     window.closeHire = closeHire;
     window.handleOverlayClick = handleOverlayClick;
-    window.closeMobileMenu = closeMobileMenu;
   </script>
+
 </body>
 </html>
