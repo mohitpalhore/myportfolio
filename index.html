@@ -622,7 +622,7 @@
 
   <!-- HEADER -->
   <header id="main-header">
-    <a href="#home" class="logo">Mohit Palhore<span>.</span></a>
+    <a href="#home" class="logo">Mohit<span>.</span></a>
 
     <nav class="desktop-nav" id="desktopNav">
       <a href="#home" class="active">Home</a>
@@ -637,7 +637,7 @@
       <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
         <i class="fas fa-moon"></i>
       </button>
-      <a href="#" class="resume-btn" id="resumeDownloadBtn"><i class="fas fa-file-pdf"></i> Resume</a>
+      <a href="images/mp.pdf" class="resume-btn" download><i class="fas fa-file-pdf"></i> Resume</a>
       <a href="#contact" class="btn-premium" onclick="openHire()">Hire Me</a>
       <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
         <i class="fas fa-bars"></i>
@@ -654,7 +654,7 @@
     <a href="#experience" onclick="closeMobileMenu()">Experience</a>
     <a href="#projects" onclick="closeMobileMenu()">Projects</a>
     <a href="#contact" onclick="closeMobileMenu()">Contact</a>
-    <a href="#" class="resume-btn" onclick="closeMobileMenu()" style="margin-top:10px; width:auto; padding:10px 30px; background:var(--primary); color:#0A0C10;"><i class="fas fa-file-pdf"></i> Download Resume</a>
+    <a href="images/mp.pdf" class="resume-btn" download onclick="closeMobileMenu()" style="margin-top:10px; width:auto; padding:10px 30px; background:var(--primary); color:#0A0C10;"><i class="fas fa-file-pdf"></i> Download Resume</a>
   </div>
 
   <!-- HERO -->
@@ -679,21 +679,20 @@
         <div class="hero-buttons">
           <a href="#contact" class="btn-premium" onclick="openHire()">Hire Me</a>
           <a href="#projects" class="btn-secondary">View Projects</a>
-          <a href="#" class="resume-btn" id="heroResumeBtn"><i class="fas fa-file-pdf"></i> Download Resume</a>
+          <a href="images/mp.pdf" class="resume-btn" download><i class="fas fa-file-pdf"></i> Download Resume</a>
         </div>
         <div class="hero-socials">
           <a href="https://github.com/mohitpalhore" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
           <a href="https://www.linkedin.com/in/mohitpalhore" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-          <!-- <a href="#" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a> -->
-          <!-- <a href="#" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a> -->
+          <a href="https://www.instagram.com/mohitpalhore" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="https://www.youtube.com/@mohitpalhore" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
         </div>
       </div>
       <div class="hero-right">
         <div class="portrait-wrap">
           <div class="glow"></div>
           <div class="portrait-frame">
-            <!-- <img src="https://ui-avatars.com/api/?name=Mohit+Palhore&background=12161C&color=00d4ff&size=340&bold=true&font-size=0.4" alt="Mohit Palhore" /> -->
-            <img src="images/mp.png" alt="Mohit Palhore" />
+            <img src="https://ui-avatars.com/api/?name=Mohit+Palhore&background=12161C&color=00d4ff&size=340&bold=true&font-size=0.4" alt="Mohit Palhore" />
           </div>
         </div>
       </div>
@@ -896,14 +895,14 @@
       </div>
       <div class="project-card glass-card" data-cat="laravel">
         <div class="project-img">
-          <img src="https://via.placeholder.com/600x375/1A1F26/00d4ff?text=Admin+Dashboard" alt="Admin Dashboard" />
+          <img src="project_images/admin_panal.png" alt="Admin Dashboard" />
         </div>
         <div class="project-info">
           <h3 class="project-title">Admin Dashboard</h3>
           <p class="project-desc">Complete admin panel with user management, analytics, and role-based access control built with Laravel and Bootstrap.</p>
           <div class="project-links">
-            <a href="#" class="proj-link"><i class="fas fa-external-link-alt"></i> Live Demo</a>
-            <a href="#" class="proj-link"><i class="fab fa-github"></i> GitHub</a>
+            <a href="https://dummyadminpanel.netlify.app/" class="proj-link"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+            <a href="https://github.com/mohitpalhore/admin_panel" class="proj-link"><i class="fab fa-github"></i> GitHub</a>
           </div>
         </div>
       </div>
@@ -920,7 +919,7 @@
       <div class="contact-details">
         <div class="contact-info-block">
           <h4>Email</h4>
-          <p>pahoreatul999@.com</p>
+          <p>mohitpalhore@gmail.com</p>
         </div>
         <div class="contact-info-block">
           <h4>Services</h4>
@@ -1015,19 +1014,16 @@
       initActiveNav();
       initThemeToggle();
       initMobileMenu();
-      initResumeButtons();
     });
 
     function initLoader() {
       const loader = document.getElementById('loader');
-      // Hide loader after page loads
       window.addEventListener('load', () => {
         setTimeout(() => {
           loader.style.opacity = '0';
           setTimeout(() => loader.style.display = 'none', 700);
         }, 800);
       });
-      // Fallback - hide after 3 seconds if something goes wrong
       setTimeout(() => {
         if (loader.style.display !== 'none') {
           loader.style.opacity = '0';
@@ -1306,15 +1302,6 @@
       });
 
       window.closeMobileMenu = closeMenu;
-    }
-
-    function initResumeButtons() {
-      document.querySelectorAll('.resume-btn').forEach(btn => {
-        btn.addEventListener('click', function(e) {
-          e.preventDefault();
-          alert('📄 Resume download would start here.\n\nIn a real implementation, this would download your actual PDF resume.');
-        });
-      });
     }
 
     function openHire() {
